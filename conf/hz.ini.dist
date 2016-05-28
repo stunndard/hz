@@ -1,0 +1,105 @@
+[server]
+
+; server type
+; must be either 'icecast' or 'shoutcast'
+server = icecast
+
+; icecast/shoutcast host and port
+host = 192.168.0.2
+port = 8000
+
+; icecast mountpoint
+; valid only for icecast servers
+; has no meaning if server is 'shoutcast'
+mount = test
+
+; icecast/shoutcast source password
+password = changeme
+
+; how many times hz should try to reconnect to a server before giving up
+; set this to 0 to try forever
+connectionattempts = 10
+
+;------
+
+[stream]
+
+; stream type
+; must be either 'aac' or 'mpeg'
+; in case of aac all your files in the playlist must be of AAC/AACplus/AACplusV2 type
+; in case of mpeg they must be of MPEG1/MPEG2/MPEG2.5 Layer I/Layer II/Layer III type
+; don't ever mix mpeg and aac in one playlist
+; also all files must have the same samplerate and number of channels
+streamtype = aac
+
+; stream name
+name = lost in space station
+
+; stream description
+description = get lost in space!
+
+; stream url
+url = http://radio.hz
+
+; stream genre
+genre = h ego z
+
+; set public to 1 to publish your stream in icecast/shoutcast
+; yp directory, 0 otherwise
+public = 0
+
+;------
+
+[playlist]
+
+; playlist type. must be 'internal' or 'lua'
+playlisttype = internal
+
+; playlist file.
+; if playlisttype is 'internal', then playlist is a file
+; with track file names, one file on a string
+; if playlisttype is 'lua', then playlist is ignored
+; and some predefined functions (in a script defined with 'script' directive)
+; get called by hz for playlist handling
+; ___________________________________________
+; don't ever mix mpeg and aac in one playlist
+; also all files in the playlist MUST have the same samplerate and number of channels
+; or your player will get stuck or even worse
+
+playlist = /home/hz/playlist.txt
+
+; random play order flag, 1 for random, 0 for sequential
+; only valid if playlisttype is 'internal'
+; has no meaning if playlisttype is 'lua'
+playrandom = 0
+
+;-------
+
+[misc]
+
+; set daemon to 1 to make hz work in the background
+; this works only on Linux
+daemon = 0
+
+; send-ahead buffer size in seconds
+buffersize = 3
+
+; whether to update stream metadata from ID3 tags or cuesheet
+; 1 to enable, 0 to disable updating.
+updatemetadata = 1
+
+; script file
+; used for many scripting purposes (playlist handling, metadata override, etc)
+; only makes sense if hz is compiled with Lua support
+script = /home/hz/script.lua
+
+; nowplay temporary file. used to resume play from the same track
+; between subsequent hz runs.
+npfile = /tmp/np.tmp
+
+; hz log file
+logfile = /home/hz/hz.log
+
+; logging verbosity
+; set to 0 for normal log, or 1 to be more verbose
+loglevel = 0

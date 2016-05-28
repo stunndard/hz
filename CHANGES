@@ -1,0 +1,64 @@
+v0.61 - Nov 8 2012
+
+- Compiles and works with the most recent FPC version of 2.6.0.
+
+v0.6 - Oct 5 2007
+
+- MPEG1/2/2.5 Layer I/II/III files now supported!
+- Daemon mode added, works on Linux.
+- Some really nasty bugs fixed.
+
+
+v0.5 - Jan 2007
+
+- Extended Lua scripting. Essential hz configuration parameters are now available to Lua scripts. Added hz_onmetadata script function to override metadata, hz_formatmetadata to format metadata.
+- Cuesheet support added. If hz finds a .cue file with the same name as currently playing .aac file, then tags are read from that .cue file. It makes it possible to stream .aac files that were captured by StreamRipper with correct metadata!
+- New ConnectionAttempts ini parameter. If server is down, hz will try to reconnect up to ConnectionAttempts times before giving up.
+- Rewrote net functions, and now hostnames can also be specified in the host ini parameter.
+- Some net error checking added, now hz will tell you if it is being rejected by a server.
+- Some minor improvements.
+
+
+v0.4 - Autumn 2006
+
+Changes
+- Added Lua scripting. Now playlist handling can be done via cool and convenient Lua scripts. Why not Python and Perl then? Well, I don't like Perl, I like Lua. And Python... Hmm, maybe in next version :)
+- Shoutcast server is now supported too. With metadata!
+- Added logging to an external file.
+- Proper CTRL-C handling.
+- Nice and groovy Makefile :)
+- Some minor bugs are fixed.
+- Cleaned up code a bit.
+
+
+v0.3 - Autumn 2006
+
+Changes
+- Metadata updating added. Supported tags are ID3v1 and ID3v2. If a file contains both ID3v1 and ID3v2, then ID3v1 has the priority. Unicode tags in ID3v2 are not supported yet. In fact, my entire ID3v2 implementation is a quick and dirty hack, so watch out, there may be problems. Yes, I'm evil. Bugoga.
+- Send-ahead buffer is now configurable. Default is 3 seconds. 
+- If AAC file check fails, it causes hz to skip the erroneous file instead of bailing out.
+- Playlist is now checked for non-existing files.
+- Even more precise timing. Tested on a wide range of AAC files, appears to work with all tested CBR and VBR files, with bitrates from 24 to 320kbps.
+- Handling of broken AAC files improved. Now hz tries to resync accurately to the next valid AAC frame if an error in AAC file is encountered.
+- No more pause between tracks, as this parameter didn't make much sense but could break the timing.
+- Some other bugfixes.
+
+
+v0.2 - Summer 2006
+
+Changes:
+- Now compiles on Linux and Win32
+- Practically balls-on accurate timing. No more listener disconnects even after a long period of time. (Still needs some testing).
+- Playlist file gets reloaded with each track change. Allows to change playlist dynamically without stopping the client.
+- Random play mode is added
+- Pause between tracks is now configurable
+
+
+v0.1 - Summer 2006
+
+First version. Sucked too much.
+
+Usage:
+hz <hz ini file>
+e.g.
+./hz hz.ini

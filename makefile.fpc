@@ -1,0 +1,21 @@
+#
+#   Makefile.fpc for hz
+#
+
+[package]
+name=hz
+version=0.61
+
+[target]
+programs=hz
+
+[compiler]
+
+unitdir=/usr/lib/fpc/2.6.0/units/i386-linux/*
+
+[dist]
+destdir=./../distrib
+zipname=hz-$(PACKAGE_VERSION) 
+
+[default]
+fpcdir=D:\devel\fpc260\src

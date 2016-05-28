@@ -1,0 +1,92 @@
+-- hz Lua script
+-- Copyright (C) 2006 Roman Butusov, <reaxis at mail dot ru>
+------------------------------------------------------------
+
+-- This is just a skeleton, something for you to start with.
+
+-- hz always defines the following global variables when loading this script
+-------------------------------------------------------------------------
+-- variable name                  type            description
+-------------------------------------------------------------------------
+-- hzServerType                   string          'icecast' or'shoutcast'
+-- hzServerHost                   string          server hostname, eg '10.10.0.1' 
+-- hzServerPort                   integer         server port, eg 8000
+-- hzServerMount                  string          server mountpoint, eg 'rock'
+-- hzServerPassword               string          server password, eg 'hackme'
+--
+-- hzStreamName                   string          stream name
+-- hzStreamDescription            string          stream description
+-- hzStreamURL                    string          stream URL
+-- hzStreamGenre                  string          stream genre
+-- hzStreamPublic                 integer         stream public status, 0 or 1
+--
+-- hzPlaylist                     string          stream playlist, eg '/home/hz/playlist.txt'
+-- hzPlaylistRandom               integer         random playlist flag, 0 or 1
+-- hzPlaylistUpdatemetadata       integer         updatemetadata flag, 0 or 1
+
+
+m = 0
+
+-- Function called to initialize your Lua environment.
+-- Should return 0 if ok, and -1 if something went wrong. 
+function hz_init()
+  print("executing hz_init() function")
+  print("hzServerType: " .. hzServerType)
+  print("hzServerHost: " .. hzServerHost)
+  print("hzServerPort: " .. hzServerPort)
+  print("hzServerMount: " .. hzServerMount)
+  print("hzServerPassword " .. hzServerPassword)
+  print("hzStreamName: " .. hzStreamName)
+  print("hzStreamDescription: " .. hzStreamDescription)
+  print("hzStreamURL: " .. hzStreamURL)
+  print("hzStreamGenre: " .. hzStreamGenre)
+  print("hzStreamPublic: " .. hzStreamPublic)
+  print("hzPlaylist: " .. hzPlaylist)
+  print("hzPlaylistRandom: " .. hzPlaylistRandom)
+  print("hzPlaylistUpdatemetadata: " .. hzPlaylistUpdatemetadata)    
+  return 0
+end
+
+-- Function called to shutdown your Lua enviroment.
+function hz_shutdown()
+  print("executing hz_shutdown() function")
+end
+
+-- Function called to get the next filename to stream.
+-- Gets called when playlisttype is set to 'lua' in hz ini file.
+-- Should return a string. 
+function hz_nextfile()
+  print("executing hz_nextfile() function")
+  m = m + 1
+  return "/home/hz/tracks/track" .. m .. ".aac"
+end
+
+-- Function called to format metadata
+-- Always remember to return formatted metadata as a string
+function hz_formatmetadata(artist, title)
+local s
+  print("executing hz_formatmetadata() function")
+  if artist ~= "" then
+    s = artist .. ' - ' .. title
+  else
+    s = title
+  end
+  s = s .. " [" .. hzStreamURL .. "]"
+  return s
+end
+
+
+-- Function called to override metadata.
+-- Current metadata is passed in the 'metadata' variable.
+-- Always remember to return the metadata as a string.
+function hz_onmetadata(metadata)
+local l, s
+  print("executing hz_onmetadata() function")
+  l = string.lower(metadata)
+  if (string.find(l, "badw0rd1") ~= nil) or (string.find(l, "badw0rd2") ~= nil) then
+    s = hzStreamName
+  else
+    s = metadata
+  end
+  return s
+end

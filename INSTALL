@@ -1,0 +1,11 @@
+1. Get FreePascal installed from http://www.freepascal.org
+You should only use version 2.6.0 or later.
+
+2. If you want Lua support:
+2.1 Under Linux: get and install Lua 5.1. hz expects to find Lua 5.1 shared library named 'liblua5.1.so'. If it doesn't exist in your system, make a symlink pointing to your Lua 5.1 shared library.
+2.2 If you are using Windows: download lua5.1.dll library from http://luabinaries.luaforge.net and place it in the same dir where hz.exe lives.
+2.3 Finally edit CONFIG.INC and uncomment the statement {$DEFINE USE_LUA}
+
+3. Do 'make'.
+This should produce a ready executable.
+3.1 Linux: If it says something like 'can't find unit', check where your FPC installed units are. Under Ubuntu they are usually at /usr/lib/fpc/2.6.0/units/i386-linux/. So do: 'fpc -Fu/usr/lib/fpc/2.6.0/units/i386-linux/* -FE. -di386 hz.pas'
